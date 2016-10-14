@@ -40,3 +40,26 @@ def init_db():
 def command_initdb():
     init_db()
     print('Initialized the database')
+
+
+def get_url(short_name):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    print(short_name)
+    cursor.execute(
+        'SELECT url FROM urls WHERE name = ?',
+        (short_name, ),
+    )
+    result = cursor.fetchall()
+    if len(result) != 1:
+        return None
+    return result[0]['url']
+
+
+def write_url(short_name, url, expiry):
+    conn = get_db_connection()
+    conn.execute(
+        'INSERT INTO urls (name, url, expiry) values (?, ?, ?)',
+        (short_name, url, expiry),
+    )
+    conn.commit()
