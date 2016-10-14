@@ -4,12 +4,11 @@ abbr is a self-hosted URL shortener written in Python/flask.
 
 ## Current state
 
-Nothing is done yet. Check back later.
+Expiry, authentication and a bookmarklet still need to be done. Install information, and packaging, too.
 
-## Features (tbd)
+## Features
 
  - shorten a URL in the web interface, optionally give a custom short name
- - set an expiry time
  - use `?info` to show a URL's redirect URL instead of going there
  - use the API to generate short URLs:
 
@@ -20,6 +19,10 @@ Nothing is done yet. Check back later.
    https://abbrv.de/myshortname
    ```
  - a simple config file for self hosting
+
+## Features (tbd)
+
+ - set an expiry time
  - a bookmarklet
  - optional support for login tokens/let only authenticated users a) see or b) create shortened URLs
 
