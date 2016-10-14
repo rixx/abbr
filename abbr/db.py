@@ -18,3 +18,12 @@ def get_db_connection():
     return g.db_connection
 
 
+@app.before_request
+def before_request():
+    g.db_connection = get_db_connection()
+
+
+@app.teardown_appcontext
+def close_db_connection(exception):
+    if hasattr(g, 'db_connection'):
+        g.db_connection.close()
