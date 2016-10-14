@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+  {% if message is mapping %}
+    <div class="col-md-10 bg-danger">
+        {% for item in message.values() %}
+            <p>{{ item }}</p>
+        {% endfor %}
+    </div>
+  {% elif message %}
+    <div class="col-md-10 bg-success">
+        {{ message }}
+    </div>
+  {% endif %}
+    <div class="col-md-10">
+        <form action="" method="post">
+            <div class="modal-body">
+                <fieldset class="form-group">
+                    <div class="col-md-9">
+                        <input name="url" class="form-control" placeholder="URL" type="text">
+                    </div>
+                    <div class="col-md-3">
+    		            <button type="submit" class="btn btn-primary btn-block" >Abbr.</button>
+                    </div>
+                </fieldset>
+                <fieldset class="form-group">
+                    <div class="col-md-6">
+                        <input name="name" class="form-control" placeholder="short name" type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <input name="expiry" class="form-control" placeholder="expiry" type="text">
+                    </div>
+                </fieldset>
+			</div>
+		</form>
+	</div>
+    
+{% endblock %}
