@@ -51,3 +51,28 @@ def main():
         return home_page()
     elif request.method == 'POST':
         return create_short_url()
+
+
+def get_redirect_or_404(short_url):
+    url = get_url(short_url)
+    if not url:
+        return abort(404)
+    return redirect(url, code=301)
+
+
+def get_info_or_404(short_url):
+    url = get_url(short_url)
+    if not url:
+        return abort(404)
+    detail = {'name': short_url, 'url': url}
+    if return_json():
+        return jsonify(detail)
+    return render_template('detail.html', **detail)
+
+
+@app.route('/<short_url>', methods=['GET'])
+def get_redirect(short_url):
+    if 'info' in request.args:
+        return get_info_or_404(short_url)
+    else:
+        return get_redirect_or_404(short_url)
