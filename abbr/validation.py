@@ -24,6 +24,7 @@ def validate_expiry(expiry):
 
 
 def validate_name(name):
+    from db import get_url
     if len(name) < 2:
         raise ValidationError(
             {'name': 'Name needs to be at least 2 characters long.'}
@@ -37,6 +38,10 @@ def validate_name(name):
         raise ValidationError(
             {'name': 'A name may only contain the following characters: {}'
                      .format(app.config.ALPHABET)}
+        )
+    if get_url(name):
+        raise ValidationError(
+            {'name': 'Name already exists in database.'}
         )
     return name
 
