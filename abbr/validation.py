@@ -12,8 +12,11 @@ class ValidationError(Exception):
 
 
 def validate_expiry(expiry):
+    from utils import from_datetime, to_datetime
+    if isinstance(expiry, datetime):
+        expiry = from_datetime(expiry)
     try:
-        return datetime.strptime(expiry, '%Y-%m-%d %H:%M:%S')
+        return to_datetime(expiry)
     except:
         raise ValidationError(
             {'expiry': 'Expiry needs to be in format %Y-%m-%d %H:%M:%S.'}

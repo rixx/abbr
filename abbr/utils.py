@@ -35,5 +35,12 @@ def get_random_name():
 
 
 def get_expiry():
-    then = datetime.now() + app.config.get('EXPIRY')
-    return then.strftime('%Y-%m-%d %H:%M:%S')
+    return datetime.now() + app.config.get('EXPIRY')
+
+
+def from_datetime(some_datetime):
+    return datetime.strftime(some_datetime, '%Y-%m-%d %H:%M:%S')
+
+
+def to_datetime(some_string):
+    return datetime.strptime(some_string, '%Y-%m-%d %H:%M:%S')
