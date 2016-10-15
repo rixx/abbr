@@ -62,10 +62,13 @@ def get_url(short_name):
         (short_name, ),
     )
     result = cursor.fetchall()
-    if len(result) != 1:
+    if len(result) == 0:
         return None
-    url_data = result[0]
+    if len(result) > 1:
+        delete_url(short_name)
+        return None
 
+    url_data = result[0]
     if url_data['expiry'] and to_datetime(url_data['expiry']) < datetime.now():
         delete_url(short_name)
         return None
