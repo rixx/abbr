@@ -1,5 +1,6 @@
 import sqlite3
 from contextlib import closing
+from datetime import datetime
 
 from flask import g
 
@@ -52,17 +53,23 @@ def delete_url(short_name):
 
 
 def get_url(short_name):
+    from utils import to_datetime
+
     conn = get_db_connection()
     cursor = conn.cursor()
-    print(short_name)
     cursor.execute(
-        'SELECT url FROM urls WHERE name = ?',
+        'SELECT * FROM urls WHERE name = ?',
         (short_name, ),
     )
     result = cursor.fetchall()
     if len(result) != 1:
         return None
-    return result[0]['url']
+    url_data = result[0]
+
+    if url_data['expiry'] and to_datetime(url_data['expiry']) < datetime.now():
+        delete_url(short_name)
+        return None
+    return url_data['url']
 
 
 def write_url(short_name, url, expiry):
