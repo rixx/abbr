@@ -23,12 +23,15 @@ def home_page():
 
 
 def create_short_url():
-    if len(request.form) == 1 and 'url' not in request.form.keys():
-        url = next(request.form.keys())
+    data = request.get_json(silent=True, force=True) or request.form
+    if isinstance(data, str):
+        url = data
+        name = get_random_name()
+        expiry = get_expiry()
     else:
-        url = request.form.get('url')
-    name = request.form.get('name') or get_random_name()
-    expiry = request.form.get('expiry') or get_expiry()
+        url = data.get('url')
+        name = data.get('name') or get_random_name()
+        expiry = data.get('expiry') or get_expiry()
 
     try:
         url = validate_url(url)
