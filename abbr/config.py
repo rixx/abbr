@@ -7,7 +7,7 @@ class Config:
     """ The default config class for abbr. """
 
     # The fqdn where your abbr is hosted
-    SITENAME = 'abbr.example.com'
+    SITENAME = 'abrv.de'
     DOMAIN = 'https://{}'.format(SITENAME)
 
     # Defautl expiry offset
