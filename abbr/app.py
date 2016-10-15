@@ -7,3 +7,7 @@ app = Flask(__name__, instance_relative_config=True)
 app.config.from_object('config.Config')
 if os.environ.get('ABBR_CONFIG'):
     app.config.from_envvar('ABBR_CONFIG')
+
+
+import db
+import views
