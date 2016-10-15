@@ -42,6 +42,15 @@ def command_initdb():
     print('Initialized the database')
 
 
+def delete_url(short_name):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute(
+        'DELETE FROM urls WHERE name = ?',
+        (short_name, ),
+    )
+
+
 def get_url(short_name):
     conn = get_db_connection()
     cursor = conn.cursor()
