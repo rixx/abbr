@@ -25,10 +25,15 @@
                 </fieldset>
                 <fieldset class="form-group">
                     <div class="col-md-6">
-                        <input name="name" class="form-control" placeholder="short name" type="text">
+                        <input name="name" class="form-control" placeholder="name (optional)" type="text">
                     </div>
                     <div class="col-md-6">
-                        <input name="expiry" class="form-control" placeholder="expiry" type="text">
+                        <select name="expiry" class="form-control">
+                            <option value="">default expiry</option>
+                            {% for expiry in expiries %}
+                                <option value="{{ expiry.value }}">{{ expiry.name }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </fieldset>
 			</div>

@@ -1,10 +1,11 @@
+from datetime import datetime, timedelta
 from urllib.parse import urljoin
 
 from flask import abort, jsonify, redirect, render_template, request
 
 from app import app
 from db import get_url, write_url
-from utils import get_expiry, get_random_name, return_json
+from utils import from_datetime, get_expiry, get_random_name, return_json
 from validation import (
     ValidationError,
     validate_expiry,
@@ -13,13 +14,25 @@ from validation import (
 )
 
 
+def get_expiries():
+    now = datetime.now()
+    return [
+        {'name': 'an hour', 'value': from_datetime(now + timedelta(hours=1))},
+        {'name': 'a day', 'value': from_datetime(now + timedelta(days=1))},
+        {'name': 'a week', 'value': from_datetime(now + timedelta(days=7))},
+        {'name': 'a month', 'value': from_datetime(now + timedelta(days=30))},
+        {'name': 'a year', 'value': from_datetime(now + timedelta(days=365))},
+        {'name': 'when the server dies', 'value': from_datetime(now + timedelta(days=365 * 100))},
+    ]
+
+
 def home_page():
     if return_json():
         return jsonify("Hi, I'm abbr. "
                        "Usage: POST either a url as string or a dict with "
                        "'url' and optionally 'name' and 'expiry' "
                        "('%Y-%m-%d %H:%M:%S').")
-    return render_template('index.html')
+    return render_template('index.html', expiries=get_expiries())
 
 
 def create_short_url():
@@ -45,7 +58,7 @@ def create_short_url():
 
     if return_json():
         return jsonify(message)
-    return render_template('index.html', message=message)
+    return render_template('index.html', expiries=get_expiries(), message=message)
 
 
 @app.route('/', methods=['GET', 'POST'])
