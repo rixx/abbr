@@ -31,3 +31,23 @@ Expiry, authentication and a bookmarklet still need to be done. Install informat
  - no tracking of clicks
  - no stats on anything
  - no plugins
+
+## Docker
+
+build:
+
+``` Shell
+docker-compose build --pull
+```
+
+initialize:
+
+``` Shell
+docker-compose run web initdb
+```
+
+start developing:
+
+``` Shell
+docker-compose up
+```
