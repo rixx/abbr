@@ -31,6 +31,7 @@ def get_random_name():
         query = conn.execute('SELECT * FROM urls WHERE name = ?', (name, ))
         if not query.fetchall():
             return name
+        i -= 1
     raise Exception('Unable to find unique name.')
 
 
