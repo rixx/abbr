@@ -25,6 +25,7 @@ def validate_expiry(expiry):
 
 def validate_name(name):
     from db import get_url
+    name = name.strip()
     if len(name) < 2:
         raise ValidationError(
             {'name': 'Name needs to be at least 2 characters long.'}
@@ -47,6 +48,7 @@ def validate_name(name):
 
 
 def validate_url(url):
+    url = url.strip()
     if not url:
         raise ValidationError({'url': 'Møøøp! Empty URLs can\'t be shortened!'})
 
