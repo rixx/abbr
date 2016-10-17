@@ -13,10 +13,10 @@ Expiry, authentication and a bookmarklet still need to be done. Install informat
  - use the API to generate short URLs:
 
    ```
-   curl -X POST -d 'http://google.com' https://abbrv.de/
-   https://abbrv.de/sdfasdfs
-   curl -X POST -d '{"url": "https://ooogle.com", "expiry": "2016-10-14 13:30:00", "name": "myshortname"}'
-   https://abbrv.de/myshortname
+   curl -X POST -d 'http://google.com' $ABBR_DOMAIN
+   $ABBR_DOMAIN/sdfasdfs
+   curl -X POST -d '{"url": "https://ooogle.com", "expiry": "2016-10-14 13:30:00", "name": "myshortname"}' $ABBR_DOMAIN
+   $ABBR_DOMAIN/myshortname
    ```
  - a simple config file for self hosting
 
