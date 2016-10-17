@@ -1,5 +1,4 @@
 import os
-import string
 from datetime import timedelta
 
 
@@ -18,7 +17,6 @@ class Config:
 
     # Default short_name alphabet: exclude o, 0, i, 1, l
     ALPHABET = 'abcdefghjkmnopqrstuvwxyz23456789'
-    ALPHABET = string.ascii_lowercase + string.digits
 
     # Default database settings for sqlite
     DATABASE = os.path.join(
