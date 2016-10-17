@@ -50,6 +50,9 @@ def validate_url(url):
     if url[0] == '"' or url[0] == "'":
         url = url[1:-1]
 
+    if not url:
+        raise ValidationError({'url': 'Møøøp! Empty URLs can\'t be shortened!'})
+
     _url = urlparse(url, scheme='http')
     # this is horrid validation. should really use Django
     if not (_url.netloc or _url.path):
