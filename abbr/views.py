@@ -73,6 +73,8 @@ def get_redirect_or_404(short_url):
     url = get_url(short_url)
     if not url:
         return abort(404)
+    if not url.startswith('http'):
+        url = 'http://' + url
     return redirect(url, code=301)
 
 
