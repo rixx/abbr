@@ -34,6 +34,5 @@ env FLASK_DEBUG=1
 env FLASK_APP=app.py
 EXPOSE 5000
 
-# production stuff
 ENTRYPOINT ["flask"]
-CMD ["run"]
+CMD ["--help"]
