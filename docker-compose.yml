@@ -1,0 +1,9 @@
+web:
+  build: .
+  environment:
+      PYTHONUNBUFFERED: 0
+  volumes:
+   - .:/opt/code
+  ports:
+   - "5000:5000"
+  command: "run --host=0.0.0.0"
