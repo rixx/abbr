@@ -16,7 +16,8 @@ class Config:
     # Default short_url length
     NAME_LENGTH = 8
 
-    # Default short_name alphabet
+    # Default short_name alphabet: exclude o, 0, i, 1, l
+    ALPHABET = 'abcdefghjkmnopqrstuvwxyz23456789'
     ALPHABET = string.ascii_lowercase + string.digits
 
     # Default database settings for sqlite
