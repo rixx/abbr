@@ -30,9 +30,8 @@ WORKDIR /opt/code/abbr
 
 USER uid1000
 
-env FLASK_DEBUG=1
 env FLASK_APP=app.py
 EXPOSE 5000
 
 ENTRYPOINT ["flask"]
-CMD ["--help"]
+CMD ["run", "--host=0.0.0.0"]
