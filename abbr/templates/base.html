@@ -4,18 +4,43 @@
         <title>{% block title %}abbr{% endblock %}</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <style>
+            #abbr-button {
+                border-color: #c3c3c3;
+                background-color: #33c33c;
+                color: #fcfcfc;
+            }
+            #abbr-navitem {
+                display: inline-block;
+                vertical-align: top;
+			}
+			#abbr-navbar {
+                background-color: #33c33c;
+			}
+			#abbr-heading {
+                font-size: 20px;
+                color: #fcfcfc;
+			}
+			#abbr-content {
+                padding-top: 2em;
+			}
+        </style>
     </head>
 	<body>
 
-    <nav class="navbar navbar-light bg-faded">
-	  <div class="container-fluid">
-		  <a class="navbar-brand" href="/">
-			&nbsp;
-		  </a>
-	  </div>
+    <nav class="navbar navbar-full navbar-light bg-faded" id="abbr-navbar">
+		<div class="container text-xs-center">
+			<ul class="nav navbar-nav" id="abbr-navitem">
+				<li class="nav-item">
+					<a class="nav-link active" id="abbr-heading" href="/">
+						abbr.
+					</a>
+				</li>
+			</ul>
+		</div>
 	</nav>
 
-    <div class="container">
+    <div class="container" id="abbr-content">
 	{% block content %}
 	{% endblock %}
     </div>
