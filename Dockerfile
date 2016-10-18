@@ -8,9 +8,6 @@ RUN apt-get update && apt-get install -y \
     bash \
     curl \
     git \
-    python-virtualenv \
-    python3-pip \
-    python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd uid1000 -d /home/uid1000
