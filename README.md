@@ -34,19 +34,19 @@ Expiry, authentication and a bookmarklet still need to be done. Install informat
 
 ## Docker
 
-build:
+### build:
 
 ``` Shell
 docker-compose build --pull
 ```
 
-initialize:
+### initialize:
 
 ``` Shell
 docker-compose run web initdb
 ```
 
-start developing:
+### start developing:
 
 ``` Shell
 docker-compose up
