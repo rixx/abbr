@@ -5,9 +5,6 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y \
     locales \
-    bash \
-    curl \
-    git \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd uid1000 -d /home/uid1000
@@ -16,10 +13,10 @@ VOLUME /home/uid1000
 
 USER root
 
-ADD requirements.txt /opt/code/requirements.txt
+COPY requirements.txt /opt/code/requirements.txt
 WORKDIR /opt/code
 RUN pip install -Ur requirements.txt
-ADD . /opt/code
+COPY . /opt/code
 
 RUN chown -R uid1000: /opt
 
@@ -27,7 +24,7 @@ WORKDIR /opt/code/abbr
 
 USER uid1000
 
-env FLASK_APP=app.py
+ENV FLASK_APP=app.py
 EXPOSE 5000
 
 ENTRYPOINT ["flask"]
