@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import random
 
 from flask import request
@@ -36,7 +36,8 @@ def get_random_name():
 
 
 def get_expiry():
-    return datetime.now() + app.config.get('EXPIRY')
+    # Create default expiry and add an additional second for processing time
+    return datetime.now() + app.config.get('EXPIRY') + timedelta(seconds=1)
 
 
 def from_datetime(some_datetime):

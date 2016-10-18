@@ -13,10 +13,13 @@ from validation import (
     validate_url,
 )
 
+from ago import human
+
 
 def get_expiries():
     now = datetime.now()
     return [
+        {'name': 'default expiry (' + human(get_expiry(), precision=1) + ")", 'value': from_datetime(get_expiry()) },
         {'name': 'an hour', 'value': from_datetime(now + timedelta(hours=1))},
         {'name': 'a day', 'value': from_datetime(now + timedelta(days=1))},
         {'name': 'a week', 'value': from_datetime(now + timedelta(days=7))},
@@ -31,7 +34,7 @@ def home_page():
         return jsonify("Hi, I'm abbr. "
                        "Usage: POST either a url as string or a dict with "
                        "'url' and optionally 'name' and 'expiry' "
-                       "('%Y-%m-%d %H:%M:%S').")
+                       "('%Y-%m-%d %H:%M:%S', Default: " + human(get_expiry(), precision=1) + ").")
     return render_template('index.html', expiries=get_expiries())
 
 
