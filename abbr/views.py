@@ -37,6 +37,9 @@ def home_page():
 
 def create_short_url():
     data = request.get_json(silent=True, force=True) or request.form
+    error = None
+    short_url = None
+
     if isinstance(data, str):
         url = data
         name = get_random_name()
@@ -51,14 +54,14 @@ def create_short_url():
         name = validate_name(name)
         expiry = validate_expiry(expiry)
     except ValidationError as err:
-        message = err.message
+        error = err.message
     else:
         write_url(name, url, expiry)
-        message = urljoin(app.config.get('DOMAIN'), name)
+        short_url = urljoin(app.config.get('DOMAIN'), name)
 
     if return_json():
-        return jsonify(message)
-    return render_template('index.html', expiries=get_expiries(), message=message)
+        return jsonify(short_url)
+    return render_template('index.html', expiries=get_expiries(), short_url=short_url, error=error)
 
 
 @app.route('/', methods=['GET', 'POST'])

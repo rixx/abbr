@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 
-  {% if message is mapping %}
-    <div class="col-md-10 bg-danger">
-        {% for item in message.values() %}
+  {% if error %}
+    <div class="col-md-10 bg-danger abbr-message">
+        {% for item in error.values() %}
             <p>{{ item }}</p>
         {% endfor %}
     </div>
-  {% elif message %}
-    <div class="col-md-10 bg-success">
-        {{ message }}
+  {% elif short_url %}
+    <div class="col-md-10 bg-success abbr-message" id="success-message">
+        <a href="{{ short_url }}?info"><span id="short-url">{{ short_url }}</span></a>
+        <button class="btn" id="copy-button" data-clipboard-target="#short-url">
+            <i class="fa fa-clipboard" aria-hidden="true"></i>
+        </button>
     </div>
   {% endif %}
     <div class="col-md-10">
