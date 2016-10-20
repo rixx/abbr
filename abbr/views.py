@@ -17,15 +17,22 @@ from validation import (
 
 def get_expiries():
     now = datetime.now()
-    return [
-        {'name': 'default expiry (' + human(get_expiry(), precision=1) + ")", 'value': from_datetime(get_expiry()) },
-        {'name': 'an hour', 'value': from_datetime(now + timedelta(hours=1))},
-        {'name': 'a day', 'value': from_datetime(now + timedelta(days=1))},
-        {'name': 'a week', 'value': from_datetime(now + timedelta(days=7))},
-        {'name': 'a month', 'value': from_datetime(now + timedelta(days=30))},
-        {'name': 'a year', 'value': from_datetime(now + timedelta(days=365))},
-        {'name': 'when the server dies', 'value': from_datetime(now + timedelta(days=365 * 100))},
-    ]
+    default_times = [
+        1,      # an hour
+        24,     # a day
+        168,    # a week
+        720,    # a month
+        8760,   # a year
+        876000, # when the server dies (100 years)
+        ]
+    expiries = []
+
+    expiries.append({'name': 'default expiry (' + human(get_expiry(), precision=1) + ")", 'value': from_datetime(get_expiry()) })
+    for timerange in default_times:
+        delta = (now + timedelta(hours=timerange) + timedelta(seconds=1))
+        expiries.append({'name': human(delta, precision=1), 'value': from_datetime(delta)})
+
+    return expiries
 
 
 def home_page():
