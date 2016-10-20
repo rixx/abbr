@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from urllib.parse import urljoin
 
 from flask import abort, jsonify, redirect, render_template, request
+from ago import human
 
 from app import app
 from db import get_url, write_url
@@ -12,8 +13,6 @@ from validation import (
     validate_name,
     validate_url,
 )
-
-from ago import human
 
 
 def get_expiries():
