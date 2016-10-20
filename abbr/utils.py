@@ -37,7 +37,7 @@ def get_random_name():
 
 def get_expiry():
     # Create default expiry and add an additional second for processing time
-    return datetime.now() + app.config.get('EXPIRY') + timedelta(seconds=1)
+    return datetime.now() + app.config.get('EXPIRY')
 
 
 def from_datetime(some_datetime):

@@ -27,10 +27,10 @@ def get_expiries():
         ]
     expiries = []
 
-    expiries.append({'name': 'default expiry (' + human(get_expiry(), precision=1) + ")", 'value': from_datetime(get_expiry()) })
+    expiries.append({'name': 'default expiry (' + human(get_expiry() + timedelta(seconds=1), precision=1) + ")", 'value': from_datetime(get_expiry()) })
     for timerange in default_times:
-        delta = (now + timedelta(hours=timerange) + timedelta(seconds=1))
-        expiries.append({'name': human(delta, precision=1), 'value': from_datetime(delta)})
+        delta = (now + timedelta(hours=timerange))
+        expiries.append({'name': human(delta + timedelta(seconds=1), precision=1), 'value': from_datetime(delta)})
 
     return expiries
 
