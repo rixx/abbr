@@ -40,7 +40,7 @@ def home_page():
         return jsonify("Hi, I'm abbr. "
                        "Usage: POST either a url as string or a dict with "
                        "'url' and optionally 'name' and 'expiry' "
-                       "('%Y-%m-%d %H:%M:%S', Default: " + human(get_expiry(), precision=1) + ").")
+                       "('%Y-%m-%d %H:%M:%S', Default: " + from_datetime(get_expiry()) + ").")
     return render_template('index.html', expiries=get_expiries())
 
 
