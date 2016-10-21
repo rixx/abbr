@@ -32,7 +32,6 @@
                     </div>
                     <div class="col-md-6">
                         <select name="expiry" class="form-control">
-                            <option value="">default expiry</option>
                             {% for expiry in expiries %}
                                 <option value="{{ expiry.value }}">{{ expiry.name }}</option>
                             {% endfor %}

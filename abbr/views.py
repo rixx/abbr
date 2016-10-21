@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from urllib.parse import urljoin
 
 from flask import abort, jsonify, redirect, render_template, request
+from ago import human
 
 from app import app
 from db import get_url, write_url
@@ -16,14 +17,22 @@ from validation import (
 
 def get_expiries():
     now = datetime.now()
-    return [
-        {'name': 'an hour', 'value': from_datetime(now + timedelta(hours=1))},
-        {'name': 'a day', 'value': from_datetime(now + timedelta(days=1))},
-        {'name': 'a week', 'value': from_datetime(now + timedelta(days=7))},
-        {'name': 'a month', 'value': from_datetime(now + timedelta(days=30))},
-        {'name': 'a year', 'value': from_datetime(now + timedelta(days=365))},
-        {'name': 'when the server dies', 'value': from_datetime(now + timedelta(days=365 * 100))},
-    ]
+    default_times = [
+        1,      # an hour
+        24,     # a day
+        168,    # a week
+        720,    # a month
+        8760,   # a year
+        876000, # when the server dies (100 years)
+        ]
+    expiries = []
+
+    expiries.append({'name': 'default expiry (' + human(get_expiry() + timedelta(seconds=1), precision=1) + ")", 'value': from_datetime(get_expiry()) })
+    for timerange in default_times:
+        delta = (now + timedelta(hours=timerange))
+        expiries.append({'name': human(delta + timedelta(seconds=1), precision=1), 'value': from_datetime(delta)})
+
+    return expiries
 
 
 def home_page():
@@ -31,7 +40,7 @@ def home_page():
         return jsonify("Hi, I'm abbr. "
                        "Usage: POST either a url as string or a dict with "
                        "'url' and optionally 'name' and 'expiry' "
-                       "('%Y-%m-%d %H:%M:%S').")
+                       "('%Y-%m-%d %H:%M:%S', Default: " + from_datetime(get_expiry()) + ").")
     return render_template('index.html', expiries=get_expiries())
 
 
