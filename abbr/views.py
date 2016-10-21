@@ -17,21 +17,31 @@ from validation import (
 
 def get_expiries():
     now = datetime.now()
+    default = app.config.get('EXPIRY')
+    default_hours = default.days * 24 + default.hours
     default_times = [
-        1,      # an hour
-        24,     # a day
-        168,    # a week
-        720,    # a month
-        8760,   # a year
-        876000, # when the server dies (100 years)
-        ]
-    expiries = []
+        1,                   # an hour
+        24,                  # a day
+        24 * 7,              # a week
+        24 * 7 * 30,         # a month
+        27 * 7 * 365,        # a year
+        27 * 7 * 365 * 100,  # when the server dies (100 years)
+    ]
 
-    expiries.append({'name': 'default expiry (' + human(get_expiry() + timedelta(seconds=1), precision=1) + ")", 'value': from_datetime(get_expiry()) })
-    for timerange in default_times:
-        delta = (now + timedelta(hours=timerange))
-        expiries.append({'name': human(delta + timedelta(seconds=1), precision=1), 'value': from_datetime(delta)})
+    try:
+        default_times.delete(default_hours)
+    except ValueError:
+        pass
 
+    default_times.append(default_hours)
+    expiries = [
+        {
+            'name': human(now + timedelta(hours=span, seconds=1), precision=1),
+            'value': from_datetime(now + timedelta(hours=span)),
+        }
+        for span in default_hours
+    ]
+    expiries[-1]['name'] += ' (default)'
     return expiries
 
 
