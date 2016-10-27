@@ -9,7 +9,7 @@ class Config:
     SITENAME = 'abrv.de'
     DOMAIN = 'https://{}'.format(SITENAME)
 
-    # Defautl expiry offset
+    # Default expiry offset
     EXPIRY = timedelta(days=365)
 
     # Default short_url length

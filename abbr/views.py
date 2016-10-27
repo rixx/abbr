@@ -18,7 +18,9 @@ from validation import (
 def get_expiries():
     now = datetime.now()
     default = app.config.get('EXPIRY')
-    default_hours = default.days * 24 + default.hours
+    default_hours = default.days * 24
+    if hasattr(default, 'hours'):
+        default_hours += default.hours
     default_times = [
         1,                   # an hour
         24,                  # a day
@@ -29,7 +31,7 @@ def get_expiries():
     ]
 
     try:
-        default_times.delete(default_hours)
+        default_times.remove(default_hours)
     except ValueError:
         pass
 
@@ -39,7 +41,7 @@ def get_expiries():
             'name': human(now + timedelta(hours=span, seconds=1), precision=1),
             'value': from_datetime(now + timedelta(hours=span)),
         }
-        for span in default_hours
+        for span in [default_hours]
     ]
     expiries[-1]['name'] += ' (default)'
     return expiries
