@@ -32,6 +32,10 @@ Expiry, authentication and a bookmarklet still need to be done. Install informat
  - no stats on anything
  - no plugins
 
+## Installation
+
+Either choose to install with docker, or try the [ansible role](https://github.com/rixx/ansible-abbr).
+
 ## Docker
 
 ### build:
